@@ -56,9 +56,18 @@
 
 ## GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=talha2912&show_icons=true&theme=tokyonight&hide_border=true&count_private=true)
+## GitHub Stats
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=talha2912&layout=compact&theme=tokyonight&hide_border=true)
+![Profile Views](https://komarev.com/ghpvc/?username=talha2912&color=1F6B75&style=flat&label=Profile+Views)
+
+| Metric | Value |
+|--------|-------|
+| 👨‍💻 Experience | 4+ Years |
+| 🏗️ Production Systems | 4 Platforms |
+| 🏢 Organizations Served | 100+ |
+| 👥 Users Impacted | 5,000+ |
+| 🔐 APIs Secured | 150+ Endpoints |
+| ⚡ Performance Improved | 25-35% |
 
 ![GitHub Streak](https://streak-stats.demolab.com?user=talha2912&theme=tokyonight&hide_border=true)
 
