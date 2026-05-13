@@ -117,6 +117,10 @@ This system is designed for compliant content publishing, not spam or artificial
 
 ## Development
 
+## UI Preview
+
+![AI LinkedIn Post Generator](./screenshots/ui-preview.png)
+
 ```bash
 npm run lint
 npm test
