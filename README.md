@@ -1,76 +1,124 @@
-# Hi, I'm Mohd Talha Khan 👋
+# AI-Powered LinkedIn Content Automation System
 
-### Software Engineer | Node.js · AdonisJS · React.js | Backend Systems · Payments · Multi-Tenant SaaS
+A production-minded Node.js API that helps create, approve, schedule, and publish authentic LinkedIn content with AI assistance.
 
----
+## Features
 
-## About Me
-- 💼 Software Engineer at Immenso Tech with **4+ years** of experience
-- 🏗️ Contributed to **4 enterprise production systems** serving 100+ organizations and 5,000+ users
-- 🔧 Specialized in **backend architecture, payment systems, and PMS integrations**
-- 📍 Thane, Maharashtra, India
-- 📧 khantalha2912@email.com
-- 🔗 [LinkedIn](https://linkedin.com/in/talha2912)
-- 🟢 **Open to Work** — Backend Engineer / Full Stack Engineer roles
-
----
-
-## What I Build
-
-| Domain | Details |
-|--------|---------|
-| 🔐 Multi-Tenant RBAC | Org/department and company/property level access control across 150+ APIs |
-| 💳 Payment Systems | ACH/NACHA, Payload, Burton, PlacePay, NMI, Cliq — transaction lifecycle & webhook reconciliation |
-| 🏢 PMS Integrations | Infor, INFORv11, MRI — lease sync, occupancy, workorders, resident operations |
-| 🤖 AI Integration | OpenAI Assistants API — Evalyn AI assistant with per-org vector files |
-| ⚙️ Background Jobs | Async workflows — billing, notifications, bulk ZIP/Excel export pipelines |
-| 🔒 Security | API permission audits, AES encryption, SSN masking, IDOR fixes |
-
----
+- **AI post generation** using OpenAI with structured post fields: hook, body, call-to-action, hashtags, full text, and rationale.
+- **Human approval workflow** so drafts are reviewed before publishing.
+- **Scheduling engine** that checks due posts every minute.
+- **Official LinkedIn REST publishing adapter** for text posts via `/rest/posts`.
+- **Local JSON persistence** for a lightweight deployable MVP that can be swapped for MySQL/PostgreSQL later.
+- **Safe fallback generator** for local demos when `OPENAI_API_KEY` is not configured.
 
 ## Tech Stack
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
-![AdonisJS](https://img.shields.io/badge/AdonisJS-220052?style=flat&logo=adonisjs&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
-![AWS S3](https://img.shields.io/badge/AWS_S3-FF9900?style=flat&logo=amazonaws&logoColor=white)
+- Node.js 24+
+- Native HTTP server
+- OpenAI Responses API
+- LinkedIn REST API
+- Built-in interval scheduler
+- Local JSON storage
 
----
+## Quick Start
 
-## Projects I've Worked On
+```bash
+cp .env.example .env
+npm run dev
+```
 
-| Project | Description | Tech Stack |
-|---------|-------------|------------|
-| **ThoughtCraft** | Behavioural Assessment SaaS — AI-powered reports, subscription engine, RBAC | Node.js, AdonisJS, MySQL, OpenAI |
-| **HubSmart** | Enterprise Property Management — region-based architecture, work orders, invoicing | Node.js, AdonisJS, React.js, MySQL |
-| **Rexicorp** | Property Operations — utility billing, payment gateways, notifications, surveys | Node.js, AdonisJS, MySQL, Payload |
-| **Infor** | PMS-Integrated Rental Platform — ACH payments, occupancy engine, PMS sync | Node.js, AdonisJS, MySQL, Infor PMS |
+The API starts at `http://localhost:3000`.
 
----
+## Environment Variables
 
-## GitHub Stats
+| Variable | Purpose |
+| --- | --- |
+| `OPENAI_API_KEY` | OpenAI API key used for AI content generation. |
+| `OPENAI_MODEL` | Model used for generation. Defaults to `gpt-4o-mini`. |
+| `LINKEDIN_ACCESS_TOKEN` | OAuth access token with LinkedIn posting access. |
+| `LINKEDIN_AUTHOR_URN` | Author URN, for example `urn:li:person:...` or an organization URN. |
+| `LINKEDIN_VERSION` | LinkedIn API version header. Defaults to `202601`. |
+| `DATA_FILE` | JSON storage path. Defaults to `.data/posts.json`. |
 
-## GitHub Stats
+## API Endpoints
 
-![Profile Views](https://komarev.com/ghpvc/?username=talha2912&color=1F6B75&style=flat&label=Profile+Views)
+### Health Check
 
-| Metric | Value |
-|--------|-------|
-| 👨‍💻 Experience | 4+ Years |
-| 🏗️ Production Systems | 4 Platforms |
-| 🏢 Organizations Served | 100+ |
-| 👥 Users Impacted | 5,000+ |
-| 🔐 APIs Secured | 150+ Endpoints |
-| ⚡ Performance Improved | 25-35% |
+```http
+GET /health
+```
 
-![GitHub Streak](https://streak-stats.demolab.com?user=talha2912&theme=tokyonight&hide_border=true)
+### Generate an AI Draft
 
----
+```http
+POST /api/posts/generate
+Content-Type: application/json
 
-*💬 Feel free to connect on [LinkedIn](https://linkedin.com/in/talha2912) or drop me an email at khantalha2912@email.com*
+{
+  "topic": "What backend engineers should know about payment webhook reliability",
+  "audience": "SaaS engineering leaders",
+  "tone": "practical and authoritative",
+  "goal": "start conversations with hiring managers",
+  "profile": {
+    "name": "Mohd Talha Khan",
+    "role": "Software Engineer",
+    "pillars": ["backend systems", "payments", "multi-tenant SaaS", "AI integrations"]
+  }
+}
+```
+
+### Save a Draft
+
+```http
+POST /api/posts
+Content-Type: application/json
+
+{
+  "topic": "Payment webhook reliability",
+  "draft": {
+    "hook": "...",
+    "body": "...",
+    "callToAction": "...",
+    "hashtags": ["#SoftwareEngineering", "#SaaS", "#Payments"],
+    "fullText": "...",
+    "rationale": "..."
+  },
+  "scheduledAt": "2026-05-13T10:30:00.000Z"
+}
+```
+
+### Approve or Schedule a Post
+
+```http
+PATCH /api/posts/:id/status
+Content-Type: application/json
+
+{
+  "status": "approved",
+  "scheduledAt": "2026-05-13T10:30:00.000Z"
+}
+```
+
+### Publish Immediately
+
+```http
+POST /api/posts/:id/publish
+```
+
+### Run Scheduler Once
+
+```http
+POST /api/scheduler/run-once
+```
+
+## Safety Notes
+
+This system is designed for compliant content publishing, not spam or artificial engagement. It does not automate likes, comments, scraping, engagement pods, unsolicited messages, or browser-based LinkedIn activity.
+
+## Development
+
+```bash
+npm run lint
+npm test
+npm run build
+```

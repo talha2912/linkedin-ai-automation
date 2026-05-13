@@ -1,0 +1,17 @@
+{
+  "name": "linkedin-ai-content-automation",
+  "version": "1.0.0",
+  "description": "AI-powered LinkedIn content generation, approval, scheduling, and publishing system.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "build": "node --check src/server.js",
+    "test": "node --test tests/*.test.js",
+    "lint": "find src tests -name '*.js' -print0 | xargs -0 -n1 node --check"
+  },
+  "keywords": ["linkedin", "openai", "content-automation", "scheduler"],
+  "author": "Mohd Talha Khan",
+  "license": "MIT"
+}
